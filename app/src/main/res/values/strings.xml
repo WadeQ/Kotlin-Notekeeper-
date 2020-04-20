@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Keeper</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="btn_save_note">Save Note</string>
+    <string name="note_title">Note Title</string>
+    <string name="enter_your_story">Enter your story...</string>
+    <string name="tv_title">Title</string>
+    <string name="notes_body">Note</string>
+</resources>

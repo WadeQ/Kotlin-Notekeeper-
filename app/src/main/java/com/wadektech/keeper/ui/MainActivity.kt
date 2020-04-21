@@ -10,11 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.wadektech.keeper.R
 import com.wadektech.keeper.adapters.NotesAdapter
+import com.wadektech.keeper.datasource.NotesRepository
+import com.wadektech.keeper.db.NoteRoomDatabase
+import com.wadektech.keeper.utils.NotesViewModelFactory
 import com.wadektech.keeper.viewmodels.NotesViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
-    private var mRecyclerView: RecyclerView  ?= null
     private var notesAdapter: NotesAdapter ?= null
     private var mLayout : LinearLayoutManager ?= null
 
@@ -28,16 +31,18 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        mRecyclerView = findViewById(R.id.recyclerView)
-        mRecyclerView?.setHasFixedSize(true)
+        recyclerView.setHasFixedSize(true)
         mLayout = LinearLayoutManager(this)
-        mRecyclerView?.layoutManager = mLayout
-        mRecyclerView?.adapter = notesAdapter
+        recyclerView.layoutManager = mLayout
+        recyclerView.adapter = notesAdapter
 
-        val notesViewModel : NotesViewModel = ViewModelProvider(this).get(NotesViewModel::class.java)
-        notesViewModel.allNotes.observe(this, Observer {
-            notesAdapter ?.submitList(it)
+        val db = NoteRoomDatabase(this)
+        val repo = NotesRepository(db)
+        val factory = NotesViewModelFactory(repo)
+
+        val notesViewModel : NotesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
+        notesViewModel.getAllNotesFromDB().observe(this, Observer {
+            notesAdapter?.submitList(it)
         })
     }
-
 }

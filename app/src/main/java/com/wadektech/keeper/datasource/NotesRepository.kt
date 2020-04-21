@@ -5,20 +5,19 @@ import com.wadektech.keeper.db.NoteDao
 import com.wadektech.keeper.db.NoteRoomDatabase
 import com.wadektech.keeper.models.Note
 
-class NotesRepository(private val noteDao: NoteDao) {
+class NotesRepository(private val roomDatabase: NoteRoomDatabase) {
 
     fun getAllNotesFromRoom():LiveData<List<Note>>{
-        return noteDao.getAllNotes()
+        return roomDatabase.noteDao().getAllNotes()
     }
 
     suspend fun insertNotes(note: Note){
-        noteDao.saveNote(note)
+        roomDatabase.noteDao().saveNote(note)
     }
     suspend fun deleteNotes(note: Note){
-        noteDao.deleteNotes(note)
+        roomDatabase.noteDao().deleteNotes(note)
     }
     suspend fun updateNote(note: Note){
-        noteDao.updateNote(note)
+        roomDatabase.noteDao().updateNote(note)
     }
-
 }

@@ -13,7 +13,6 @@ abstract class NoteRoomDatabase : RoomDatabase(){
     companion object{
         @Volatile
         private var roomInstance : NoteRoomDatabase  ?= null
-
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = roomInstance ?: synchronized(LOCK){

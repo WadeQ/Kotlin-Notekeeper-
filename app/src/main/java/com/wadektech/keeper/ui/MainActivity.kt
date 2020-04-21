@@ -15,9 +15,17 @@ import com.wadektech.keeper.db.NoteRoomDatabase
 import com.wadektech.keeper.utils.NotesViewModelFactory
 import com.wadektech.keeper.viewmodels.NotesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.kodein.di.Kodein
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance as instance1
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), KodeinAware {
+
+    override val kodein by kodein()
+    private val factory : NotesViewModelFactory by instance1()
+
     private var notesAdapter: NotesAdapter ?= null
     private var mLayout : LinearLayoutManager ?= null
 
@@ -25,24 +33,23 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val ft : FloatingActionButton = findViewById(R.id.ft_btn)
-        ft.setOnClickListener {
+        ft_btn.setOnClickListener {
             val intent = Intent(this, AddNoteActivity::class.java)
             startActivity(intent)
         }
 
-        recyclerView.setHasFixedSize(true)
-        mLayout = LinearLayoutManager(this)
-        recyclerView.layoutManager = mLayout
-        recyclerView.adapter = notesAdapter
-
-        val db = NoteRoomDatabase(this)
-        val repo = NotesRepository(db)
-        val factory = NotesViewModelFactory(repo)
+       initRecyclerview()
 
         val notesViewModel : NotesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
         notesViewModel.getAllNotesFromDB().observe(this, Observer {
             notesAdapter?.submitList(it)
         })
+    }
+
+    private fun initRecyclerview(){
+        recyclerView.setHasFixedSize(true)
+        mLayout = LinearLayoutManager(this)
+        recyclerView.layoutManager = mLayout
+        recyclerView.adapter = notesAdapter
     }
 }

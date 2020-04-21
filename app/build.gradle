@@ -69,7 +69,8 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:4.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:4.4.0'
     // DI
-    implementation 'org.koin:koin-android:2.1.5'
-    implementation 'org.koin:koin-androidx-viewmodel:2.1.5'
+    implementation "org.kodein.di:kodein-di-generic-jvm:6.2.1"
+    implementation "org.kodein.di:kodein-di-framework-android-core:6.2.1"
+    implementation "org.kodein.di:kodein-di-framework-android-x:6.2.1"
 
 }

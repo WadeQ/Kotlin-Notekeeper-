@@ -26,7 +26,19 @@ class AddNoteActivity : AppCompatActivity() {
     private fun saveNotesToDB(){
         val title = et_title.toString().trim()
         val note = et_note_body.toString().trim()
-        val notes = Note(title, note)
-        notesViewModel?.insertNotesToDB(notes)
+        when {
+            title.isEmpty() -> {
+                et_title.error = "Title cannot be blank!"
+                et_title.requestFocus()
+            }
+            note.isEmpty() -> {
+                et_note_body.error = "Body cannot be blank!"
+                et_note_body.requestFocus()
+            }
+            else -> {
+                val notes = Note(title, note)
+                notesViewModel?.insertNotesToDB(notes)
+            }
+        }
     }
 }

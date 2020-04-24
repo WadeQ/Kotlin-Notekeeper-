@@ -14,7 +14,9 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-
+        useLibrary 'android.test.runner'
+        useLibrary 'android.test.base'
+        useLibrary 'android.test.mock'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     dataBinding {
@@ -72,5 +74,22 @@ dependencies {
     implementation "org.kodein.di:kodein-di-generic-jvm:6.2.1"
     implementation "org.kodein.di:kodein-di-framework-android-core:6.2.1"
     implementation "org.kodein.di:kodein-di-framework-android-x:6.2.1"
+    // -------- INSTRUMENTATION TESTS (use JUnit4)
+    androidTestImplementation 'junit:junit:4.12'
+    // AndroidX test
+    def androidx_test_version = "1.1.0"
+    androidTestImplementation "androidx.test:core:$androidx_test_version"
+    androidTestImplementation "androidx.test:runner:$androidx_test_version"
+    // Architecture components testing
+    def androidx_arch_test_version = "2.0.1"
+    androidTestImplementation "androidx.arch.core:core-testing:$androidx_arch_test_version"
+    // -------- LOCAL UNIT TESTS (use JUnit5)
+    // JUnit Jupiter
+    def junit_jupiter_version = "5.3.2"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junit_jupiter_version"
+    testImplementation "org.junit.jupiter:junit-jupiter-params:$junit_jupiter_version"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junit_jupiter_version"
+
+
 
 }

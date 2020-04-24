@@ -16,7 +16,10 @@ abstract class NoteRoomDatabase : RoomDatabase(){
         private val LOCK = Any()
 
         operator fun invoke(context: Context) = roomInstance ?: synchronized(LOCK){
-            roomInstance ?: createRoomDatabase(context).also { roomInstance = it }
+            roomInstance ?: createRoomDatabase(context)
+                .also {
+                roomInstance = it
+                }
         }
 
         private fun createRoomDatabase(context: Context) = Room.databaseBuilder(

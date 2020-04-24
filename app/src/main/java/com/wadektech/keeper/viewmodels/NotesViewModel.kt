@@ -16,7 +16,6 @@ class NotesViewModel(private val repository: NotesRepository): ViewModel() {
     fun getAllNotesFromDB() : LiveData<List<Note>> {
         return repository.getAllNotesFromRoom()
     }
-
     fun insertNotesToDB(note: Note) = viewModelScope.launch(Dispatchers.IO) {
         repository.insertNotes(note)
     }

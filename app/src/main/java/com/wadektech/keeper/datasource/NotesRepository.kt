@@ -1,7 +1,6 @@
 package com.wadektech.keeper.datasource
 
 import androidx.lifecycle.LiveData
-import com.wadektech.keeper.db.NoteDao
 import com.wadektech.keeper.db.NoteRoomDatabase
 import com.wadektech.keeper.models.Note
 

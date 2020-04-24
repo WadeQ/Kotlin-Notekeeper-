@@ -11,7 +11,7 @@ import com.wadektech.keeper.models.Note
 import com.wadektech.keeper.utils.NotesDiffUtil
 import kotlinx.android.synthetic.main.notes_item_list.view.*
 
-class NotesAdapter(private val notesList: List<Note>) : ListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUtil()){
+class NotesAdapter : ListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUtil()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.notes_item_list, parent, false)
@@ -19,11 +19,11 @@ class NotesAdapter(private val notesList: List<Note>) : ListAdapter<Note, NotesA
     }
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
-        val pos = notesList[position]
+        val pos = getItem(position)
         holder.title.text = pos.title
         holder.note.text = pos.note
     }
-    class NotesViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
+    inner class NotesViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {
         val title : TextView = itemView.tv_note_title
         val note : TextView = itemView.tv_notes_body
     }

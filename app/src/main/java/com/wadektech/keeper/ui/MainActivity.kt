@@ -2,6 +2,7 @@ package com.wadektech.keeper.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -42,6 +43,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         val notesViewModel : NotesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
         notesViewModel.getAllNotesFromDB().observe(this, Observer {
+            Log.d("getAllNotesFromDB():", "{${it.size}}")
             notesAdapter.submitList(it)
         })
     }

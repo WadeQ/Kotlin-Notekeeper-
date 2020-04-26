@@ -75,7 +75,7 @@ dependencies {
     implementation "org.kodein.di:kodein-di-framework-android-core:6.2.1"
     implementation "org.kodein.di:kodein-di-framework-android-x:6.2.1"
     // -------- INSTRUMENTATION TESTS (use JUnit4)
-    androidTestImplementation 'junit:junit:4.12'
+    androidTestImplementation 'junit:junit:4.13'
     // AndroidX test
     def androidx_test_version = "1.1.0"
     androidTestImplementation "androidx.test:core:$androidx_test_version"

@@ -1,12 +1,13 @@
 package com.wadektech.keeper.db
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.wadektech.keeper.models.Note
 
-@Database(entities = [Note::class], version = 1, exportSchema = false)
+@Database(entities = [Note::class], version = 2, exportSchema = false)
 abstract class NoteRoomDatabase : RoomDatabase(){
      abstract fun noteDao(): NoteDao
 
@@ -18,15 +19,16 @@ abstract class NoteRoomDatabase : RoomDatabase(){
         operator fun invoke(context: Context) = roomInstance ?: synchronized(LOCK){
             roomInstance ?: createRoomDatabase(context)
                 .also {
-                roomInstance = it
+                    Log.d("invoke():", "{$it} has been created")
+                    roomInstance = it
                 }
         }
 
         private fun createRoomDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
             NoteRoomDatabase::class.java,
-            "NOTE_ROOM_DB"
-        )
+            "NOTE_ROOM_DB")
+
             .fallbackToDestructiveMigration()
             .build()
     }

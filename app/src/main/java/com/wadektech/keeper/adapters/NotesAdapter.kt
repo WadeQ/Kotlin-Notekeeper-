@@ -1,5 +1,6 @@
 package com.wadektech.keeper.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ class NotesAdapter : ListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUt
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val pos = getItem(position)
         holder.title.text = pos.title
+        Log.d("onBindViewHolder():", "{${pos.title}} is title")
         holder.note.text = pos.note
     }
     inner class NotesViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView) {

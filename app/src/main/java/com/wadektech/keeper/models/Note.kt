@@ -9,11 +9,11 @@ import androidx.room.RoomWarnings
 @SuppressWarnings(RoomWarnings.CURSOR_MISMATCH)
 data class Note(
     @ColumnInfo(name = "note_title")
-    var title : String,
+    val title : String,
 
     @ColumnInfo(name = "note_body")
-    var note : String
+    val note : String
 ){
     @PrimaryKey(autoGenerate = true)
-    var id : Int? = null
+    var id : Int = 0
 }

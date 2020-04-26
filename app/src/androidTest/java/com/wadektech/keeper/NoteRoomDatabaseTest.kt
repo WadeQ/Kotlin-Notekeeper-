@@ -2,6 +2,7 @@ package com.wadektech.keeper
 
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.platform.app.InstrumentationRegistry
 import com.wadektech.keeper.db.NoteDao
 import com.wadektech.keeper.db.NoteRoomDatabase
@@ -10,8 +11,9 @@ import junit.framework.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
 import org.junit.runner.RunWith
+import java.io.IOException
 
-@RunWith(AndroidJUnit4::class)
+@RunWith(AndroidJUnit4ClassRunner::class)
 class NoteRoomDatabaseTest {
     private lateinit var noteDao: NoteDao
     private lateinit var db: NoteRoomDatabase
@@ -29,8 +31,8 @@ class NoteRoomDatabaseTest {
     }
 
     @After
-    @Throws(Exception::class)
-    fun closeDB(){
+    @Throws(IOException::class)
+    fun closeDb() {
         db.close()
     }
 

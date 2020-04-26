@@ -3,8 +3,10 @@ package com.wadektech.keeper.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import com.wadektech.keeper.R
 import com.wadektech.keeper.models.Note
+import com.wadektech.keeper.utils.toast
 import com.wadektech.keeper.viewmodels.NotesViewModel
 import kotlinx.android.synthetic.main.activity_add_note.*
 
@@ -30,14 +32,18 @@ class AddNoteActivity : AppCompatActivity() {
             title.isEmpty() -> {
                 et_title.error = "Title cannot be blank!"
                 et_title.requestFocus()
+                return
             }
             note.isEmpty() -> {
                 et_note_body.error = "Body cannot be blank!"
                 et_note_body.requestFocus()
+                return
             }
             else -> {
                 val notes = Note(title, note)
+                Log.d("saveNotesToDB():", "{$notes} saved.")
                 notesViewModel?.insertNotesToDB(notes)
+                this.toast("Notes saved...")
             }
         }
     }

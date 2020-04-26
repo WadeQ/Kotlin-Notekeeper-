@@ -9,7 +9,9 @@ import com.wadektech.keeper.db.NoteRoomDatabase
 import com.wadektech.keeper.models.Note
 import junit.framework.Assert.assertEquals
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
+import org.junit.Test
 import org.junit.runner.RunWith
 import java.io.IOException
 
@@ -36,16 +38,12 @@ class NoteRoomDatabaseTest {
         db.close()
     }
 
-    @After
-    @Throws(Exception::class)
-    suspend fun insertAndGetNote(){
-        val note = Note("Covid-19 Data","2 Million people worldwide have been infected so far.")
+    @Test
+    suspend fun testInsertedAndRetrievedNotesMatch() {
+        val note = Note("Title", "Body of the note")
         noteDao.saveNote(note)
-        val notes = noteDao.getAllNotes()
 
-        assertEquals(note.id, notes.value)
-        assertEquals(note.note, notes.value)
-        assertEquals(note.title, notes.value)
-
+        val notesGet = noteDao.getAllNotes()
+        Assert.assertEquals(note, notesGet)
     }
 }

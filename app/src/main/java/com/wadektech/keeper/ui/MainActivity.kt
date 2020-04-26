@@ -20,6 +20,7 @@ import org.kodein.di.android.kodein
 
 class MainActivity : AppCompatActivity(), KodeinAware {
     override val kodein by kodein()
+
     private lateinit var notesAdapter: NotesAdapter
     private var mLayout : LinearLayoutManager ?= null
 
@@ -41,7 +42,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         val repo = NotesRepository(db)
         val factory = NotesViewModelFactory(repo)
 
-        val notesViewModel : NotesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
+        val notesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
         notesViewModel.getAllNotesFromDB().observe(this, Observer {
             Log.d("getAllNotesFromDB():", "{${it.size}}")
             notesAdapter.submitList(it)

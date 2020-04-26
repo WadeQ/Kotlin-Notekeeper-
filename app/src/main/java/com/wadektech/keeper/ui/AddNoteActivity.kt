@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_add_note.*
 
 
 class AddNoteActivity : AppCompatActivity() {
-    private var notesViewModel: NotesViewModel?= null
+    private lateinit var notesViewModel: NotesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,8 +26,8 @@ class AddNoteActivity : AppCompatActivity() {
     }
 
     private fun saveNotesToDB(){
-        val title = et_title.toString().trim()
-        val note = et_note_body.toString().trim()
+        val title = et_title.text.toString().trim()
+        val note = et_note_body.text.toString().trim()
         when {
             title.isEmpty() -> {
                 et_title.error = "Title cannot be blank!"

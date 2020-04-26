@@ -9,7 +9,6 @@ class NotesRepository(private val roomDatabase: NoteRoomDatabase) {
     fun getAllNotesFromRoom():LiveData<List<Note>>{
         return roomDatabase.noteDao().getAllNotes()
     }
-
     suspend fun insertNotes(note: Note){
         roomDatabase.noteDao().saveNote(note)
     }

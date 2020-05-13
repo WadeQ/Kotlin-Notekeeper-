@@ -8,4 +8,5 @@
     <string name="enter_your_story">Enter your story...</string>
     <string name="tv_title">Title</string>
     <string name="notes_body">Note</string>
+    <string name="note_body">Note here...</string>
 </resources>

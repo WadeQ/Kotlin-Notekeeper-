@@ -16,10 +16,13 @@ import com.wadektech.keeper.viewmodels.NotesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
+import org.kodein.di.generic.instance
 
 
 class MainActivity : AppCompatActivity(), KodeinAware {
     override val kodein by kodein()
+     //private val factory : NotesViewModelFactory by instance<NotesViewModelFactory>()
+
     private lateinit var notesAdapter: NotesAdapter
     private var mLayout : LinearLayoutManager ?= null
 
@@ -37,11 +40,11 @@ class MainActivity : AppCompatActivity(), KodeinAware {
         notesAdapter = NotesAdapter()
         recyclerView.adapter = notesAdapter
 
-        val db = NoteRoomDatabase(this)
-        val repo = NotesRepository(db)
-        val factory = NotesViewModelFactory(repo)
+         val db = NoteRoomDatabase(this)
+         val repo = NotesRepository(db)
+         val factory = NotesViewModelFactory(repo)
 
-        val notesViewModel : NotesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
+        val notesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
         notesViewModel.getAllNotesFromDB().observe(this, Observer {
             Log.d("getAllNotesFromDB():", "{${it.size}}")
             notesAdapter.submitList(it)

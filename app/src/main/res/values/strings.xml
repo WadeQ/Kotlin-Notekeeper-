@@ -9,4 +9,5 @@
     <string name="tv_title">Title</string>
     <string name="notes_body">Note</string>
     <string name="note_body">Note here...</string>
+    <string name="search_menu">Search</string>
 </resources>

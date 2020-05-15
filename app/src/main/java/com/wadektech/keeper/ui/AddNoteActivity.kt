@@ -61,4 +61,9 @@ class AddNoteActivity : AppCompatActivity(), KodeinAware {
             }
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        notesViewModel.cancelJobs()
+    }
 }

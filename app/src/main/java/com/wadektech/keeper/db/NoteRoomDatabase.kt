@@ -6,6 +6,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.wadektech.keeper.models.Note
+import timber.log.Timber
 
 @Database(entities = [Note::class], version = 2, exportSchema = false)
 abstract class NoteRoomDatabase : RoomDatabase(){
@@ -15,11 +16,12 @@ abstract class NoteRoomDatabase : RoomDatabase(){
         @Volatile
         private var roomInstance : NoteRoomDatabase  ?= null
         private val LOCK = Any()
+        private var NOTE_ROOM_DB = "notes_db"
 
         operator fun invoke(context: Context) = roomInstance ?: synchronized(LOCK){
             roomInstance ?: createRoomDatabase(context)
                 .also {
-                    Log.d("invoke():", "{$it} has been created")
+                    Timber.d("invoke(): {$it} has been created")
                     roomInstance = it
                 }
         }
@@ -27,7 +29,7 @@ abstract class NoteRoomDatabase : RoomDatabase(){
         private fun createRoomDatabase(context: Context) = Room.databaseBuilder(
             context.applicationContext,
             NoteRoomDatabase::class.java,
-            "NOTE_ROOM_DB")
+            NOTE_ROOM_DB)
 
             .fallbackToDestructiveMigration()
             .build()

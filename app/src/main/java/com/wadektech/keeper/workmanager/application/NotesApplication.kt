@@ -47,7 +47,7 @@ class NotesApplication : Application() {
                 }
             }
             .build()
-        val repeatedRequests = PeriodicWorkRequestBuilder<NotesNotificationsWorker>(10, TimeUnit.MINUTES)
+        val repeatedRequests = PeriodicWorkRequestBuilder<NotesNotificationsWorker>(5, TimeUnit.HOURS)
             .setConstraints(constraints)
             .build()
         Timber.d("Periodic notifications request scheduled.")

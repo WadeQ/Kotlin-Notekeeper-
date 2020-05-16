@@ -10,8 +10,15 @@
     </data>
 
 <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp"
+    android:layout_marginBottom="8dp"
+    android:background="@drawable/my_violet_background_drawable"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginRight="8dp"
+    android:layout_marginLeft="8dp">
 
     <TextView
         android:id="@+id/tv_note_title"
@@ -19,13 +26,14 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:text="@{note.title}"
         android:hint="@string/note_title"
+        android:text="@{note.title}"
         android:textSize="20sp"
         android:textStyle="bold"
+        android:textColor="@color/darkColor"
         app:layout_constraintBottom_toTopOf="@+id/tv_notes_body"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/iv_note"
@@ -43,6 +51,7 @@
         android:text="@{note.note}"
         android:hint="@string/note_body"
         android:textSize="18sp"
+        android:textColor="@color/darkColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_note"

@@ -16,6 +16,7 @@ import kotlinx.android.synthetic.main.activity_add_note.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
+import timber.log.Timber
 
 class AddNoteActivity : AppCompatActivity(), KodeinAware {
     private lateinit var notesViewModel: NotesViewModel
@@ -55,15 +56,10 @@ class AddNoteActivity : AppCompatActivity(), KodeinAware {
             }
             else -> {
                 val notes = Note(title, note)
-                Log.d("saveNotesToDB():", "{$notes} saved.")
+                Timber.d("saveNotesToDB(): {$notes} saved.")
                 notesViewModel.insertNotesToDB(notes)
                 this.toast("Notes saved...")
             }
         }
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        notesViewModel.cancelJobs()
     }
 }

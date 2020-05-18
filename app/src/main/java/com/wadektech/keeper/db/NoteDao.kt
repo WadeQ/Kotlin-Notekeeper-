@@ -1,8 +1,10 @@
 package com.wadektech.keeper.db
 
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
 import androidx.room.*
 import com.wadektech.keeper.models.Note
+
 
 @Dao
 interface NoteDao {
@@ -17,7 +19,6 @@ interface NoteDao {
     suspend fun deleteNotes(note: Note)
 
     @Query("SELECT * FROM notes_db ORDER BY id ASC")
-    fun getAllNotes(): LiveData<List<Note>>
-
+    fun getAllNotes(): DataSource.Factory<Int, Note>
 
 }

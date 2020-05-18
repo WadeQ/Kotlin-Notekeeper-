@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wadektech.keeper.R
@@ -12,7 +13,7 @@ import com.wadektech.keeper.models.Note
 import com.wadektech.keeper.utils.NotesDiffUtil
 import kotlinx.android.synthetic.main.notes_item_list.view.*
 
-class NotesAdapter : ListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUtil()){
+class NotesAdapter : PagedListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUtil()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.notes_item_list, parent, false)
@@ -21,7 +22,7 @@ class NotesAdapter : ListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUt
 
     override fun onBindViewHolder(holder: NotesViewHolder, position: Int) {
         val note = getItem(position)
-        holder.bind(note)
+        note?.let { holder.bind(it) }
 
     }
 

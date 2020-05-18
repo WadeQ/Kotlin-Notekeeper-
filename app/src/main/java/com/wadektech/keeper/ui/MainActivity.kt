@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
+import timber.log.Timber
 
 
 class MainActivity : AppCompatActivity(), KodeinAware {
@@ -47,7 +49,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         val notesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
         notesViewModel.getAllNotesFromDB().observe(this, Observer {
-            Log.d("getAllNotesFromDB():", "{${it.size}}")
+           Timber.d("getAllNotesFromDB(): {${it.size}}")
             notesAdapter.submitList(it)
         })
     }
@@ -61,5 +63,10 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu, menu)
         return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        return super.onOptionsItemSelected(item)
     }
 }

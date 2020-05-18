@@ -6,6 +6,8 @@ import android.content.Context
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LiveData
+import androidx.paging.DataSource
+import androidx.paging.PagedList
 import com.wadektech.keeper.R
 import com.wadektech.keeper.db.NoteRoomDatabase
 import com.wadektech.keeper.models.Note
@@ -15,7 +17,7 @@ class NotesRepository(private val roomDatabase: NoteRoomDatabase) {
 
     val context = NotesApplication.notesApplicationContext()
 
-    fun getAllNotesFromRoom(): LiveData<List<Note>> {
+    fun getAllNotesFromRoom(): DataSource.Factory<Int, Note> {
         return roomDatabase.noteDao().getAllNotes()
     }
 

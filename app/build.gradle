@@ -93,5 +93,7 @@ dependencies {
     implementation 'com.jakewharton.timber:timber:4.7.1'
     def work_version = "1.0.0-beta02"
     implementation "android.arch.work:work-runtime-ktx:$work_version"
+     //paging
+    implementation "android.arch.paging:runtime:1.0.1"
 
 }

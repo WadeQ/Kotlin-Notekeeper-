@@ -1,19 +1,17 @@
 package com.wadektech.keeper.adapters
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.paging.PagedListAdapter
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.wadektech.keeper.R
 import com.wadektech.keeper.models.Note
 import com.wadektech.keeper.utils.NotesDiffUtil
 import kotlinx.android.synthetic.main.notes_item_list.view.*
 
-class NotesAdapter(private val singleItemClicked: OnSingleItemClicked) : PagedListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUtil()){
+class NotesAdapter(private val notesList: List<Note>, private val singleItemClicked: OnSingleItemClicked) : PagedListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUtil()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.notes_item_list, parent, false)
@@ -42,5 +40,9 @@ class NotesAdapter(private val singleItemClicked: OnSingleItemClicked) : PagedLi
     }
     interface OnSingleItemClicked{
         fun onSingleNoteItemClicked(position: Int)
+    }
+
+    fun getNotesList(): List<Note> {
+       return this.notesList
     }
 }

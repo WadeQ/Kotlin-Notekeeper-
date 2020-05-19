@@ -106,8 +106,7 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
 
     override fun onSingleNoteItemClicked(position: Int) {
         val intent = Intent(applicationContext, AddNoteActivity::class.java)
-        val note = notesAdapter.currentList?.get(position)
-        intent.putExtra(EXTRA_NOTE_ID, note)
+        intent.putExtra(EXTRA_NOTE_ID, position)
         startActivity(intent)
         Timber.d("onSingleNoteItemClicked(): the item at position : {$position} has been clicked")
     }

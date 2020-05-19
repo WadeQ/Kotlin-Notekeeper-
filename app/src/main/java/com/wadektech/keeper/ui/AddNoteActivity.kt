@@ -1,6 +1,7 @@
 package com.wadektech.keeper.ui
 
 import android.content.Intent
+import android.net.IpPrefix
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,7 @@ class AddNoteActivity : AppCompatActivity(), KodeinAware {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
+
     }
 
     private fun saveNotesToDB() {

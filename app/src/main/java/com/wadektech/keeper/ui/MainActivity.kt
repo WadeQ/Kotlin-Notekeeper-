@@ -32,6 +32,9 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
     private lateinit var notesAdapter: NotesAdapter
     private var mLayout: LinearLayoutManager? = null
     private lateinit var notesViewModel: NotesViewModel
+    companion object{
+        const val EXTRA_NOTE_ID = "id"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,7 +49,7 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
 
         notesList = ArrayList<Note>()
 
-        notesAdapter = NotesAdapter(notesList, this)
+        notesAdapter = NotesAdapter(this)
         recyclerView.adapter = notesAdapter
 
         val db = NoteRoomDatabase(this)
@@ -73,7 +76,7 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
                 override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                     //get position of note
                     val pos : Int = viewHolder.adapterPosition
-                    //get list of notes
+                    //get list of notes and implement delete
                     notesAdapter.currentList?.get(pos)?.let {
                         notesViewModel.deleteNotes(it)
                         Snackbar.make(main_activity, "Note deleted successfully...", Snackbar.LENGTH_LONG).show()
@@ -102,7 +105,11 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
     }
 
     override fun onSingleNoteItemClicked(position: Int) {
-        toast("Item $position has been clicked.")
+        val intent = Intent(applicationContext, AddNoteActivity::class.java)
+        val note = notesAdapter.currentList?.get(position)
+        intent.putExtra(EXTRA_NOTE_ID, note)
+        startActivity(intent)
         Timber.d("onSingleNoteItemClicked(): the item at position : {$position} has been clicked")
     }
 }
+

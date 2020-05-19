@@ -11,7 +11,7 @@ import com.wadektech.keeper.models.Note
 import com.wadektech.keeper.utils.NotesDiffUtil
 import kotlinx.android.synthetic.main.notes_item_list.view.*
 
-class NotesAdapter(private val notesList: List<Note>, private val singleItemClicked: OnSingleItemClicked) : PagedListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUtil()){
+class NotesAdapter(private val singleItemClicked: OnSingleItemClicked) : PagedListAdapter<Note, NotesAdapter.NotesViewHolder>(NotesDiffUtil()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotesViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.notes_item_list, parent, false)
@@ -42,7 +42,4 @@ class NotesAdapter(private val notesList: List<Note>, private val singleItemClic
         fun onSingleNoteItemClicked(position: Int)
     }
 
-    fun getNotesList(): List<Note> {
-       return this.notesList
-    }
 }

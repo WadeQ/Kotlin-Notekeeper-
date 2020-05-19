@@ -21,7 +21,10 @@ class NotesViewModel(private val repository: NotesRepository) : ViewModel() {
             7)
         pagedList = pagedListBuilder.build()
     }
-    fun getAllNotesFromDB() = pagedList
+
+    fun getAllNotesFromDB(): LiveData<PagedList<Note>> {
+        return pagedList
+    }
 
     fun insertNotesToDB(note: Note) = viewModelScope.launch {
         repository.insertNotes(note)

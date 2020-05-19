@@ -8,13 +8,16 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wadektech.keeper.R
 import com.wadektech.keeper.adapters.NotesAdapter
 import com.wadektech.keeper.datasource.NotesRepository
 import com.wadektech.keeper.db.NoteRoomDatabase
 import com.wadektech.keeper.utils.NotesViewModelFactory
+import com.wadektech.keeper.utils.toast
 import com.wadektech.keeper.viewmodels.NotesViewModel
+import com.wadektech.keeper.workmanager.application.NotesApplication
 import kotlinx.android.synthetic.main.activity_main.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -22,7 +25,7 @@ import org.kodein.di.generic.instance
 import timber.log.Timber
 
 
-class MainActivity : AppCompatActivity(), KodeinAware {
+class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleItemClicked{
     override val kodein by kodein()
      //private val factory : NotesViewModelFactory by instance<NotesViewModelFactory>()
 
@@ -40,7 +43,7 @@ class MainActivity : AppCompatActivity(), KodeinAware {
 
         initRecyclerview()
 
-        notesAdapter = NotesAdapter()
+        notesAdapter = NotesAdapter(this)
         recyclerView.adapter = notesAdapter
 
          val db = NoteRoomDatabase(this)
@@ -68,5 +71,12 @@ class MainActivity : AppCompatActivity(), KodeinAware {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         val id = item.itemId
         return super.onOptionsItemSelected(item)
+
     }
+
+    override fun onSingleNoteItemClicked(position: Int) {
+        toast("Item $position has been clicked.")
+        Timber.d("onSingleNoteItemClicked(): the item at position : {$position} has been clicked")
+    }
+
 }

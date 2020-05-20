@@ -17,8 +17,8 @@ class NotesNotificationsWorker(context: Context, params : WorkerParameters) : Co
         val notesRepository = NotesRepository(noteRoomDatabase)
 
         try {
-            Timber.d("createNotifications(): {${notesRepository.createNotifications("created","notification has been created")}}")
-            notesRepository.createNotifications("Time to note?", "Do you want to note down anything so far? Open up...")
+            Timber.d("createNotifications(): notification class called.")
+            notesRepository.createNotifications()
         }catch (e : HttpException){
             return Result.retry()
         }

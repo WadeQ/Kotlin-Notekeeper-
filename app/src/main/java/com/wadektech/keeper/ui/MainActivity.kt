@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
         setContentView(R.layout.activity_main)
 
         ft_btn.setOnClickListener {
-            val intent = Intent(this, AddNoteActivity::class.java)
-            startActivity(intent)
+            val fabIntent = Intent(this, AddNoteActivity::class.java)
+            startActivity(fabIntent)
         }
 
         initRecyclerview()
@@ -79,7 +79,7 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
                     //get list of notes and implement delete
                     notesAdapter.currentList?.get(pos)?.let {
                         notesViewModel.deleteNotes(it)
-                        Snackbar.make(main_activity, "Note deleted successfully...", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(main_activity, "Note deleted...", Snackbar.LENGTH_LONG).show()
                 }
                 }
             }
@@ -99,7 +99,10 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val id = item.itemId
+        when(item.itemId){
+            R.id.menu_search -> searchInit()
+            R.id.menu_settings -> initSettings()
+        }
         return super.onOptionsItemSelected(item)
 
     }
@@ -109,6 +112,15 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
         intent.putExtra(EXTRA_NOTE_ID, position)
         startActivity(intent)
         Timber.d("onSingleNoteItemClicked(): the item at position : {$position} has been clicked")
+    }
+
+    private fun initSettings(){
+        val intent = Intent(this, SettingsActivity::class.java)
+        startActivity(intent)
+    }
+
+    private fun searchInit(){
+        toast("Search implementation TODO")
     }
 }
 

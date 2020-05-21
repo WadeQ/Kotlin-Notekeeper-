@@ -10,4 +10,6 @@
     <string name="notes_body">Note</string>
     <string name="note_body">Note here...</string>
     <string name="search_menu">Search</string>
+    <string name="ui_preference">UI Preference</string>
+    <string name="toggle_night_mode">Toggle Night Mode</string>
 </resources>

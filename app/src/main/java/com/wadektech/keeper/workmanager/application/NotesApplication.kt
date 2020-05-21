@@ -41,28 +41,29 @@ class NotesApplication : Application() {
     private fun delayedNotificationInit(){
         scope.launch {
             Timber.plant(Timber.DebugTree())
-            val intent = Intent(notesApplicationContext(), MainActivity::class.java)
-            val pendingIntent = TaskStackBuilder.create(this@NotesApplication).run {
-                addNextIntentWithParentStack(intent)
-                    .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
-            }
-            val notificationBuilder = NotificationCompat.Builder(this@NotesApplication,
-                NotesRepository.CHANNEL_ID
-            )
-                .setContentTitle("New note?")
-                .setContentText("Time to add a new note?")
-                .setSmallIcon(R.drawable.ic_notifications)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentIntent(pendingIntent)
-                .build()
-
-            val notificationManager = NotificationManagerCompat.from(this@NotesApplication)
-            notificationManager.notify(1, notificationBuilder)
             setUpRecurringNotificationWork()
         }
     }
 
     private fun setUpRecurringNotificationWork(){
+        val intent = Intent(notesApplicationContext(), MainActivity::class.java)
+        val pendingIntent = TaskStackBuilder.create(this@NotesApplication).run {
+            addNextIntentWithParentStack(intent)
+                .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT)
+        }
+
+        val notificationBuilder = NotificationCompat.Builder(this@NotesApplication,
+            NotesRepository.CHANNEL_ID)
+            .setContentTitle("New note?")
+            .setContentText("Time to add a new note?")
+            .setSmallIcon(R.drawable.ic_notifications)
+            .setPriority(NotificationCompat.PRIORITY_HIGH)
+            .setContentIntent(pendingIntent)
+            .build()
+
+        val notificationManager = NotificationManagerCompat.from(this@NotesApplication)
+        notificationManager.notify(1, notificationBuilder)
+
         val constraints = Constraints.Builder()
             .apply {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){

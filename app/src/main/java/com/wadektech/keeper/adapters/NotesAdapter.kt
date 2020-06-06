@@ -22,16 +22,17 @@ class NotesAdapter(private val singleItemClicked: OnSingleItemClicked) :
         }
     }
 
-    class NotesViewHolder private constructor(val binding: NotesItemListBinding)
+    class NotesViewHolder private constructor(private val binding: NotesItemListBinding)
         : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(noteItem: Note, itemClicked: OnSingleItemClicked){
-            binding.tvNoteTitle.text = noteItem.title
-            binding.tvNotesBody.text = noteItem.note
+            binding.note = noteItem
+            binding.executePendingBindings()
             itemView.setOnClickListener {
                 itemClicked.onSingleNoteItemClicked(adapterPosition)
             }
         }
+
         companion object {
             fun from(parent: ViewGroup): NotesViewHolder {
                 val inflater = LayoutInflater.from(parent.context)

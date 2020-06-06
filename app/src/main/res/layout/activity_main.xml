@@ -26,8 +26,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/notes_item_list"
-        app:layout_constraintVertical_bias="0.0" />
+        tools:listitem="@layout/notes_item_list" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/ft_btn"
@@ -44,7 +43,6 @@
         app:srcCompat="@drawable/add"
         tools:ignore="VectorDrawableCompat"
         android:focusable="true" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

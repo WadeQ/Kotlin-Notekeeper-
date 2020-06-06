@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -13,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.wadektech.keeper.R
 import com.wadektech.keeper.adapters.NotesAdapter
+import com.wadektech.keeper.databinding.ActivityMainBinding
 import com.wadektech.keeper.datasource.NotesRepository
 import com.wadektech.keeper.db.NoteRoomDatabase
 import com.wadektech.keeper.models.Note
 import com.wadektech.keeper.utils.NotesViewModelFactory
+import com.wadektech.keeper.utils.snackbar
 import com.wadektech.keeper.utils.toast
 import com.wadektech.keeper.viewmodels.NotesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,15 +35,16 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
     private lateinit var notesAdapter: NotesAdapter
     private var mLayout: LinearLayoutManager? = null
     private lateinit var notesViewModel: NotesViewModel
+    private lateinit var binding: ActivityMainBinding
     companion object{
         const val EXTRA_NOTE_ID = "id"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+       binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        ft_btn.setOnClickListener {
+        binding.ftBtn.setOnClickListener {
             val fabIntent = Intent(this, AddNoteActivity::class.java)
             startActivity(fabIntent)
         }
@@ -79,7 +83,7 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
                     //get list of notes and implement delete
                     notesAdapter.currentList?.get(pos)?.let {
                         notesViewModel.deleteNotes(it)
-                        Snackbar.make(main_activity, "Note deleted...", Snackbar.LENGTH_LONG).show()
+                        snackbar(main_activity, "Note deleted...")
                 }
                 }
             }
@@ -88,7 +92,7 @@ class MainActivity : AppCompatActivity(), KodeinAware , NotesAdapter.OnSingleIte
     }
 
     private fun initRecyclerview() {
-        recyclerView.setHasFixedSize(true)
+        binding.recyclerView.setHasFixedSize(true)
         mLayout = LinearLayoutManager(this)
         recyclerView.layoutManager = mLayout
     }

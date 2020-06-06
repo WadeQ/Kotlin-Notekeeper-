@@ -5,8 +5,10 @@ import android.net.IpPrefix
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.wadektech.keeper.R
+import com.wadektech.keeper.databinding.ActivityAddNoteBinding
 import com.wadektech.keeper.datasource.NotesRepository
 import com.wadektech.keeper.db.NoteRoomDatabase
 import com.wadektech.keeper.models.Note
@@ -21,12 +23,13 @@ import timber.log.Timber
 
 class AddNoteActivity : AppCompatActivity(), KodeinAware {
     private lateinit var notesViewModel: NotesViewModel
+    private lateinit var binding : ActivityAddNoteBinding
     override val kodein by kodein()
      //private val factory : NotesViewModelFactory by instance<NotesViewModelFactory>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_note)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_add_note)
 
         val db = NoteRoomDatabase(this)
         val repo = NotesRepository(db)
@@ -34,26 +37,25 @@ class AddNoteActivity : AppCompatActivity(), KodeinAware {
 
         notesViewModel = ViewModelProvider(this, factory).get(NotesViewModel::class.java)
 
-        btn_save_note.setOnClickListener {
+        binding.btnSaveNote.setOnClickListener {
             saveNotesToDB()
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
-
     }
 
     private fun saveNotesToDB() {
-        val title = et_title.text.toString().trim()
-        val note = et_note_body.text.toString().trim()
+        val title = binding.etTitle.text.toString().trim()
+        val note = binding.etNoteBody.text.toString().trim()
         when {
             title.isEmpty() -> {
-                et_title.error = "Title cannot be blank!"
-                et_title.requestFocus()
+                binding.etTitle.error = "Title cannot be blank!"
+                binding.etTitle.requestFocus()
                 return
             }
             note.isEmpty() -> {
-                et_note_body.error = "Body cannot be blank!"
-                et_note_body.requestFocus()
+               binding.etNoteBody.error = "Body cannot be blank!"
+                binding.etNoteBody.requestFocus()
                 return
             }
             else -> {

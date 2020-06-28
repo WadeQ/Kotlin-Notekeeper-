@@ -44,7 +44,7 @@ class AddNoteActivity : AppCompatActivity(), KodeinAware {
         }
     }
 
-    private fun saveNotesToDB() {
+    fun saveNotesToDB() {
         val title = binding.etTitle.text.toString().trim()
         val note = binding.etNoteBody.text.toString().trim()
         when {

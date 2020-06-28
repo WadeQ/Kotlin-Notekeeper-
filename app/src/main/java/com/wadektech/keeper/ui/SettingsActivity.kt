@@ -1,5 +1,6 @@
 package com.wadektech.keeper.ui
 
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -10,7 +11,7 @@ import com.wadektech.keeper.utils.snackbar
 import kotlinx.android.synthetic.main.activity_settings.*
 
 
-class SettingsActivity : AppCompatActivity() {
+class SettingsActivity : AppCompatActivity() , SharedPreferences.OnSharedPreferenceChangeListener{
 private lateinit var binding: ActivitySettingsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,5 +26,9 @@ private lateinit var binding: ActivitySettingsBinding
                 snackbar(settings_activity, "Night mode turned OFF...")
             }
         }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+
     }
 }
